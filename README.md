@@ -6,4 +6,4 @@ Photos never leave the browser: only their metadata is read, on your own device.
 
 Live: https://archivereadiness.chicomorais.com
 
-Chico Morais, https://chicomorais.com. The tool was proposed and coded with AI assistance (Claude). Version 2, November 2026.
+Chico Morais, https://chicomorais.com. The tool was proposed and coded with AI assistance (Claude). Version 2.1, November 2026: copied numbers and CSV are cleared when you load new photos or change the required fields.

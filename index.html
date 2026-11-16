@@ -235,7 +235,7 @@ pre.out { white-space: pre-wrap; overflow-wrap: anywhere; font-family: var(--f-m
   </section>
   <footer class="foot">
     <p>Chico Morais · <a href="https://chicomorais.com">chicomorais.com</a></p>
-    <p>The tool was proposed and coded with AI assistance (Claude). Version 2, November 2026.</p>
+    <p>The tool was proposed and coded with AI assistance (Claude). Version 2.1, November 2026.</p>
   </footer>
 </main>
 
@@ -407,7 +407,7 @@ pre.out { white-space: pre-wrap; overflow-wrap: anywhere; font-family: var(--f-m
     if (!files.length) { setStatus('No photos found in that selection.' + (skipped ? ' ' + skipped + ' other files were skipped.' : '')); return; }
     if (!window.exifr) { setStatus('The metadata reader didn’t load. Check your connection and reload the page.'); return; }
     photos.forEach(function (p) { if (p.thumb && p.thumb.indexOf('blob:') === 0) URL.revokeObjectURL(p.thumb); });
-    photos = []; isExample = false; openRow = null;
+    photos = []; isExample = false; openRow = null; clearOut();
     var done = 0, next = 0, out = new Array(files.length);
     setStatus('Reading 0 of ' + files.length + '…');
     function worker() {
@@ -424,6 +424,8 @@ pre.out { white-space: pre-wrap; overflow-wrap: anywhere; font-family: var(--f-m
     });
   }
   function setStatus(s) { $('status').textContent = s; }
+  // Copied numbers or CSV belong to one set of photos and one choice of required fields: hide them when either changes.
+  function clearOut() { var o = $('out'); o.hidden = true; o.textContent = ''; }
 
   /* ---------- rendering ---------- */
   var GLYPH = { ok: '✓', gap: '–', warn: '!' }, WORD = { ok: 'filled', gap: 'missing', warn: 'check' };
@@ -459,7 +461,7 @@ pre.out { white-space: pre-wrap; overflow-wrap: anywhere; font-family: var(--f-m
     var chips = $('chips'); chips.textContent = '';
     FIELDS.forEach(function (f) {
       var b = el('button', { cls: 'chip', type: 'button', 'aria-pressed': String(!!required[f.id]), text: f.name });
-      b.addEventListener('click', function () { required[f.id] = !required[f.id]; render(); });
+      b.addEventListener('click', function () { required[f.id] = !required[f.id]; clearOut(); render(); });
       chips.appendChild(b);
     });
     // table
